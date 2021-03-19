@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import random
 import copy
+import sys
 
 # df = pd.read_table('CS170_small_special_testdata__95.txt', sep=r'\s{2,}', header=None, engine='python')
 # df = pd.read_table('CS170_small_special_testdata__95.txt', sep=r'\s+', header=None, engine='python')
@@ -43,6 +44,46 @@ def feature_search(data):
     
     print('\nFinished search!! The best feature subset is {}, which has an accuracy of {}%'.format(globalBestSetOfFeatures, globalBestAccuracy))
 
+
+def backward_elimination_search(data):
+    numRows = data.shape[0]
+    numCols = data.shape[1]
+
+    current_set_of_features = set()
+    for feature in range(1, numCols):
+        current_set_of_features.add(feature)
+    
+    globalBestAccuracy = 0
+    globalBestSetOfFeatures = copy.deepcopy(current_set_of_features)
+
+    print('Beginning search.')
+    for i in range(0, numCols):
+        feature_to_remove_at_this_level = 0
+        best_so_far_accuracy = 0
+
+        for k in range(1, numCols):
+            if k in current_set_of_features:
+                temp_set_of_features = copy.deepcopy(current_set_of_features)
+                temp_set_of_features.remove(k)
+                accuracy = leave_one_out_cross_validation(data, temp_set_of_features, np.inf)
+                print('\tConsidering removing feature {}, accuracy is {}%'.format(k, accuracy))
+
+                if accuracy > best_so_far_accuracy:
+                    best_so_far_accuracy = accuracy
+                    feature_to_remove_at_this_level = k               
+
+        # Needed because last iteration feature_to_remove_at_this_level will be 0 and throw off set & accuracy
+        if feature_to_remove_at_this_level != 0:
+            current_set_of_features.remove(feature_to_remove_at_this_level)
+            print('Removed feature {}. Feature set is now {}, accuracy is {}%'.format(feature_to_remove_at_this_level, current_set_of_features, best_so_far_accuracy))
+            
+            if best_so_far_accuracy > globalBestAccuracy:
+                globalBestAccuracy = best_so_far_accuracy
+                globalBestSetOfFeatures.remove(feature_to_remove_at_this_level)
+    
+    print('\nFinished search!! The best feature subset is {}, which has an accuracy of {}%'.format(globalBestSetOfFeatures, globalBestAccuracy))
+
+
 def leave_one_out_cross_validation(data, current_set, feature_to_add):
     numRows = data.shape[0]
     numCols = data.shape[1]
@@ -80,9 +121,18 @@ def leave_one_out_cross_validation(data, current_set, feature_to_add):
     return round((number_correctly_classified / numRows) * 100, 1)
 
 def main():
-    data = np.loadtxt('CS170_small_special_testdata__95.txt')
-    # data = np.loadtxt('CS170_small_special_testdata__98.txt')
+    print('Welcome to Isaac\'s Feature Selection Algorithm')
+    file = input('Type the name of the file to test: ')
+    data = np.loadtxt(file)
 
-    feature_search(data)
+    print('Choose a search algorithm.\n\t1) Forward Selection\n\t2) Backward Elimination')
+    algorithmChoice = input()
+
+    print ('\n\nThis dataset has {} features (not including the class attribute), with {} instances.\n'.format(data.shape[1] - 1, data.shape[0]))
+
+    if algorithmChoice == '1':
+        feature_search(data)
+    elif algorithmChoice == '2':
+        backward_elimination_search(data)
 
 main()
