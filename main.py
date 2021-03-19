@@ -14,27 +14,34 @@ def feature_search(data):
     numCols = data.shape[1]
 
     current_set_of_features = set()
+    
+    globalBestAccuracy = 0
+    globalBestSetOfFeatures = set()
 
     print('Beginning search.')
     for i in range(0, numCols):
-        # print('On the {}th level of the search tree.'.format(i))
-        # feature_to_add_at_this_level = 0
+        feature_to_add_at_this_level = 0
         best_so_far_accuracy = 0
 
         for k in range(1, numCols):
             if k not in current_set_of_features:
                 accuracy = leave_one_out_cross_validation(data, current_set_of_features, k)
-                print('\tConsidering feature {}, accuracy is {}'.format(k, accuracy))
+                print('\tConsidering feature {}, accuracy is {}%'.format(k, accuracy))
 
                 if accuracy > best_so_far_accuracy:
-                    # print('Best so far accuracy: {}'.format(accuracy))
                     best_so_far_accuracy = accuracy
-                    feature_to_add_at_this_level = k
-        current_set_of_features.add(feature_to_add_at_this_level)
-        # print('On level {} I added feature {} to current set'.format(i, feature_to_add_at_this_level))
-        # print(best_so_far_accuracy)
-        # print(current_set_of_features)
-        print('Feature set {} was best, accuracy is {}'.format(current_set_of_features, best_so_far_accuracy))
+                    feature_to_add_at_this_level = k               
+
+        # Needed because last iteration feature_to_add_at_this_level will be 0 and throw off set & accuracy
+        if feature_to_add_at_this_level != 0:
+            current_set_of_features.add(feature_to_add_at_this_level)
+            print('Feature set {} was best, accuracy is {}%'.format(current_set_of_features, best_so_far_accuracy))
+            
+            if best_so_far_accuracy > globalBestAccuracy:
+                globalBestAccuracy = best_so_far_accuracy
+                globalBestSetOfFeatures.add(feature_to_add_at_this_level)
+    
+    print('\nFinished search!! The best feature subset is {}, which has an accuracy of {}%'.format(globalBestSetOfFeatures, globalBestAccuracy))
 
 def leave_one_out_cross_validation(data, current_set, feature_to_add):
     numRows = data.shape[0]
@@ -70,25 +77,12 @@ def leave_one_out_cross_validation(data, current_set, feature_to_add):
         if label_object_to_classify == nearest_neighbor_label:
             number_correctly_classified += 1
 
-    return number_correctly_classified / numRows
+    return round((number_correctly_classified / numRows) * 100, 1)
 
 def main():
     data = np.loadtxt('CS170_small_special_testdata__95.txt')
-    # print(data.shape)
+    # data = np.loadtxt('CS170_small_special_testdata__98.txt')
+
     feature_search(data)
-    # leave_one_out_cross_validation(data, 0, 0)
-
-    # print(data)
-    # current_set = {2, 9}
-    # feature_to_add = 1
-
-    # for feature in range(1, 11):
-    #     if feature not in current_set and feature != feature_to_add:
-    #         data[ : , feature] = 0
-
-    # print('=====================================')
-    # print(data)
-    # print('=====================================')
-    # print(data[ : , 10])
 
 main()
