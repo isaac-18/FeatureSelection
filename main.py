@@ -1,14 +1,7 @@
-from numpy.core.fromnumeric import size
 import pandas as pd
 import numpy as np
-import random
 import copy
-import sys
-
-# df = pd.read_table('CS170_small_special_testdata__95.txt', sep=r'\s{2,}', header=None, engine='python')
-# df = pd.read_table('CS170_small_special_testdata__95.txt', sep=r'\s+', header=None, engine='python')
-# print(df)
-
+import time
 
 def feature_search(data):
     numRows = data.shape[0]
@@ -125,14 +118,20 @@ def main():
     file = input('Type the name of the file to test: ')
     data = np.loadtxt(file)
 
-    print('Choose a search algorithm.\n\t1) Forward Selection\n\t2) Backward Elimination')
+    print('\nChoose a search algorithm.\n\t1) Forward Selection\n\t2) Backward Elimination')
     algorithmChoice = input()
 
     print ('\n\nThis dataset has {} features (not including the class attribute), with {} instances.\n'.format(data.shape[1] - 1, data.shape[0]))
 
     if algorithmChoice == '1':
+        start = time.time()
         feature_search(data)
+        end = time.time()
     elif algorithmChoice == '2':
+        start = time.time()
         backward_elimination_search(data)
+        end = time.time()
+
+    print('Time elapsed: {} seconds'.format(round(end - start, 1)))
 
 main()
