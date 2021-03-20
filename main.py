@@ -3,7 +3,7 @@ import numpy as np
 import copy
 import time
 
-def feature_search(data):
+def forward_selection_search(data):
     numRows = data.shape[0]
     numCols = data.shape[1]
 
@@ -94,13 +94,10 @@ def leave_one_out_cross_validation(data, current_set, feature_to_add):
         object_to_classify = newData[i, 1:]
         label_object_to_classify = newData[i, 0]
 
-        # print('Looping over i, at the {} location'.format(i+1))
-        # print('The {}th object is in class {}'.format(i+1, label_object_to_classify))
         nearest_neighbor_distance = np.inf
         nearest_neighbor_location = np.inf
 
         for k in range(0, numRows):
-            # print('Ask if {} is nearest neighbor with {}'.format(i, k))
             if k != i:
                 distance = np.sqrt(sum((object_to_classify - newData[k, 1:])**2))
                 if distance < nearest_neighbor_distance:
@@ -125,7 +122,7 @@ def main():
 
     if algorithmChoice == '1':
         start = time.time()
-        feature_search(data)
+        forward_selection_search(data)
         end = time.time()
     elif algorithmChoice == '2':
         start = time.time()
