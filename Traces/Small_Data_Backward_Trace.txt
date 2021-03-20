@@ -1,0 +1,80 @@
+Welcome to Isaac's Feature Selection Algorithm
+Type the name of the file to test: CS170_SMALLtestdata__45.txt
+
+Choose a search algorithm.
+        1) Forward Selection
+        2) Backward Elimination
+2
+
+
+This dataset has 10 features (not including the class attribute), with 300 instances.
+
+Beginning search.
+        Considering removing feature 1, accuracy is 72.0%
+        Considering removing feature 2, accuracy is 70.3%
+        Considering removing feature 3, accuracy is 71.7%
+        Considering removing feature 4, accuracy is 72.0%
+        Considering removing feature 5, accuracy is 65.3%
+        Considering removing feature 6, accuracy is 70.7%
+        Considering removing feature 7, accuracy is 67.7%
+        Considering removing feature 8, accuracy is 71.7%
+        Considering removing feature 9, accuracy is 70.3%
+        Considering removing feature 10, accuracy is 69.7%
+Removed feature 1. Feature set is now {2, 3, 4, 5, 6, 7, 8, 9, 10}, accuracy is 72.0%
+        Considering removing feature 2, accuracy is 72.0%
+        Considering removing feature 3, accuracy is 73.3%
+        Considering removing feature 4, accuracy is 76.0%
+        Considering removing feature 5, accuracy is 67.3%
+        Considering removing feature 6, accuracy is 74.0%
+        Considering removing feature 7, accuracy is 70.3%
+        Considering removing feature 8, accuracy is 75.3%
+        Considering removing feature 9, accuracy is 73.7%
+        Considering removing feature 10, accuracy is 70.3%
+Removed feature 4. Feature set is now {2, 3, 5, 6, 7, 8, 9, 10}, accuracy is 76.0%
+        Considering removing feature 2, accuracy is 79.0%
+        Considering removing feature 3, accuracy is 76.3%
+        Considering removing feature 5, accuracy is 71.3%
+        Considering removing feature 6, accuracy is 78.7%
+        Considering removing feature 7, accuracy is 71.0%
+        Considering removing feature 8, accuracy is 78.0%
+        Considering removing feature 9, accuracy is 75.7%
+        Considering removing feature 10, accuracy is 76.3%
+Removed feature 2. Feature set is now {3, 5, 6, 7, 8, 9, 10}, accuracy is 79.0%
+        Considering removing feature 3, accuracy is 80.0%
+        Considering removing feature 5, accuracy is 74.0%
+        Considering removing feature 6, accuracy is 82.7%
+        Considering removing feature 7, accuracy is 74.3%
+        Considering removing feature 8, accuracy is 78.0%
+        Considering removing feature 9, accuracy is 83.0%
+        Considering removing feature 10, accuracy is 82.3%
+Removed feature 9. Feature set is now {3, 5, 6, 7, 8, 10}, accuracy is 83.0%
+        Considering removing feature 3, accuracy is 83.7%
+        Considering removing feature 5, accuracy is 71.7%
+        Considering removing feature 6, accuracy is 82.3%
+        Considering removing feature 7, accuracy is 75.3%
+        Considering removing feature 8, accuracy is 85.7%
+        Considering removing feature 10, accuracy is 80.3%
+Removed feature 8. Feature set is now {3, 5, 6, 7, 10}, accuracy is 85.7%
+        Considering removing feature 3, accuracy is 90.0%
+        Considering removing feature 5, accuracy is 72.0%
+        Considering removing feature 6, accuracy is 91.3%
+        Considering removing feature 7, accuracy is 79.3%
+        Considering removing feature 10, accuracy is 84.3%
+Removed feature 6. Feature set is now {3, 5, 7, 10}, accuracy is 91.3%
+        Considering removing feature 3, accuracy is 95.0%
+        Considering removing feature 5, accuracy is 72.3%
+        Considering removing feature 7, accuracy is 81.0%
+        Considering removing feature 10, accuracy is 91.3%
+Removed feature 3. Feature set is now {5, 7, 10}, accuracy is 95.0%
+        Considering removing feature 5, accuracy is 70.7%
+        Considering removing feature 7, accuracy is 86.0%
+        Considering removing feature 10, accuracy is 95.0%
+Removed feature 10. Feature set is now {5, 7}, accuracy is 95.0%
+        Considering removing feature 5, accuracy is 74.7%
+        Considering removing feature 7, accuracy is 85.7%
+Removed feature 7. Feature set is now {5}, accuracy is 85.7%
+        Considering removing feature 5, accuracy is 18.3%
+Removed feature 5. Feature set is now set(), accuracy is 18.3%
+
+Finished search!! The best feature subset is {5, 7, 10}, which has an accuracy of 95.0%
+Time elapsed: 27.3 seconds
